@@ -1,0 +1,16 @@
+Ceníme práci na projektu! 🏆 Prohlédli jsme si kód a máme k němu následující poznámky:
+
+1. Pojmenování identifikátorů - vesměs velmi dobré, až na výjimky, jako funkce zobraz_vsechny(), která zobrazuje barevnou hlavičku a vrací (nezobrazuje) seznam
+2. Dodržení principů SRP a SoC - SRP = Single Responsibility Principle, tedy princip jedné odpovědnosti. To lze porušit dvěma směry. Buď (a častěji) tak, že jedna třída má více odpovědností, např. že nejenom spravuje databázovou tabulku, ale také vypisuje data do konzole. Výsledkem pak je, že takovou třídu není možné použít v jiném kontextu, např. pokud bychom měli okenní nebo webovou aplikaci.
+Druhý způsob je méně zřejmý - když jednu odpovědnost, např. interakci s uživatelem/konzolí, sdílí více tříd. Důsledkem je pak slepenec více tříd, kde není jasné, co která třída vlastně zajišťuje, není zřejmé, v které třídě nějakou metodu najdeme nebo proč by měla být zrovna v té a nikoli jiné.
+Vypisování je v třídách Evidence, UzivatelskeRozhrani i v main(), částečně v Pojistenec, navíc zvláštně prolnuté (příliš těsné vazby). Pojištěnec je rovnou barven v __str__, což s sebou jednak přináší závislost na třídě Color, která by tam nemusela být, jednak ho pak jinde vypisujeme přes jednoduchý print, zatímco ostatní texty jsou typicky vypisovány přes print(Color.color_text()). Lepší by tedy bylo nechat barvení na uživatelském rozhraní a zjednodušit třídu Pojistenec. Zmiňovaná Evidence.zobraz_vsechny() vypíše hlavičku (závislost na konzoli i na barvách) a vrátí ven seznam, který navíc zvenku lze modifikovat (třída/instance si ho nijak nebrání).
+3. Vhodný výběr datových typů - vcelku ok, zvlášť v Pythonu, problematické je možná telefonní číslo, viz dále
+4. Formátování kódu - ok
+5. Duplicitní kód a nekonečné cykly - někdo nemá rád nekonečné cykly typu while True v hlavním programu, kterých by se šlo snadno zbavit zavedením třeba boolovské proměnné pokracovat, ale jinak ok
+6. Validace vstupních dat - prováděna, za mírně problematické považuji telefonní číslo, u kterého je třeba zadat pouze a právě devět číslic. To vylučuje jak zadání mezinárodních čísel, tak využití oddělovačů (mezer), písmen namísto číslic (1-800-HELPME apod.) nebo využití, byť lokální, v zemích s jinak dlouhou telefonní předvolbou.
+7. Logičnost a složitost - Ještě jednou k validaci - díky hezky provedenému sdílení validací a vstupu dochází ovšem k tomu, že uživatel není nikde upozorněn, jak mají správná data vypadat, a jen dostává hlášku "Neplatné údaje. Opakujte."
+Též mám vždy problém s tím, když vyhledávání v záznamech funguje na bázi rovnosti - takže i Bolehlavoslavu Snědldítětikašiovou je potřeba zadat celou, přesně a bez překlepu, abychom zjistili, jestli tam je, zatímco Janů Nováků tam bude několik, ale zobrazí nám to vždy jen toho prvního bez možnosti zjistit, jestli jsou tam další.
+8. Komentáře - ok, v případě metod mohly být jako docstringy uvnitř.
+9. Celkové hodnocení - až na výtku směrem k SRP a validacím jde o velmi hezkou konzolovou aplikaci s dobře promyšleným chováním.
+
+Doporučujeme případné výtky v kódu opravit, abyste jej mohli pak prezentovat budoucímu zaměstnavateli v co nejlepší kvalitě. Pokud byste potřebovali s čímkoli pomoci, naplánujte si s námi konzultaci, rádi vám poradíme!
